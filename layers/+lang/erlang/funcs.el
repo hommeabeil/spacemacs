@@ -11,7 +11,7 @@
 
 (defun spacemacs//erlang-backend ()
   "Returns selected backend."
-  (if erlang-backend
+  (if (boundp 'erlang-backend)
       erlang-backend
     (cond
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
@@ -20,7 +20,8 @@
 (defun spacemacs//erlang-setup-backend ()
   "Conditionally setup erlang backend."
   (pcase (spacemacs//erlang-backend)
-    (`lsp (spacemacs//erlang-setup-lsp)))
+    (`lsp (spacemacs//erlang-setup-lsp))
+    (`company-erlang (company-erlang-init)))
   )
 
 (defun spacemacs//erlang-setup-company ()
@@ -31,7 +32,11 @@
     (`lsp (spacemacs|add-company-backends
             :backends company-capf
             :modes erlang-mode
-            :append-hooks t))))
+            :append-hooks t))
+    (`company-erlang (spacemacs|add-company-backends
+                       :backends company-erlang
+                       :modes erlang-mode))
+    (- (spacemacs|add-company-backends :modes erlang-mode))))
 
 (defun spacemacs//erlang-setup-lsp ()
   "Setup lsp backend."

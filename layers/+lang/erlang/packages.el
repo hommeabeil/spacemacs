@@ -17,6 +17,8 @@
         counsel-gtags
         helm-gtags
         flycheck
+        company-erlang
+        ivy-erlang-complete
         ))
 
 (defun erlang/post-init-company ()
@@ -45,6 +47,15 @@
       ;;             ))
       (setq erlang-compile-extra-opts '(debug_info)))
     :config (require 'erlang-start)))
+
+(defun erlang/init-ivy-erlang-complete ()
+  (use-package ivy-erlang-complete
+    :defer t))
+
+(defun erlang/init-company-erlang ()
+  (use-package company-erlang
+    :defer t
+    ))
 
 (defun erlang/post-init-flycheck ()
   (spacemacs/enable-flycheck 'erlang-mode))
