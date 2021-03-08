@@ -11,7 +11,7 @@
 
 (defun spacemacs//erlang-backend ()
   "Returns selected backend."
-  (if (boundp 'erlang-backend)
+  (if erlang-backend
       erlang-backend
     (cond
      ((configuration-layer/layer-used-p 'lsp) 'lsp)
